@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+    <title>Internship Tracker</title>
+</head>
+<body>
+    <h1>Internship Applications</h1>
+    <table border="1">
+        <tr>
+            <th>Company</th>
+            <th>Role</th>
+            <th>Date Applied</th>
+            <th>Status</th>
+        </tr>
+        {% for app in applications %}
+        <tr>
+            <td>{{ app['company'] }}</td>
+            <td>{{ app['role'] }}</td>
+            <td>{{ app['date_applied'] }}</td>
+            <td>{{ app['status'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
