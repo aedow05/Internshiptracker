@@ -1,29 +1,42 @@
-<h1>Internship Applications</h1>
+{% extends "base.html" %}
 
-<!-- Search form -->
-<form method="get" action="/">
-    <input type="text" name="search" placeholder="Search..." value="{{ search }}">
-    <button type="submit">Search</button>
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>Internship Applications</h2>
+
+<form method="GET" class="mb-3">
+  <input type="text" name="search" value="{{ search }}" placeholder="Search..." class="form-control" />
 </form>
 
-<table border="1">
+<table class="table table-striped">
+  <thead>
     <tr>
-        <th>Company</th>
-        <th>Role</th>
-        <th>Date Applied</th>
-        <th>Status</th>
-        <th>Actions</th>
+      <th>Company</th>
+      <th>Role</th>
+      <th>Date Applied</th>
+      <th>Status</th>
+      <th>Actions</th>
     </tr>
+  </thead>
+  <tbody>
     {% for app in applications %}
-    <tr>
+      <tr>
         <td>{{ app.company }}</td>
         <td>{{ app.role }}</td>
         <td>{{ app.date_applied }}</td>
         <td>{{ app.status }}</td>
         <td>
-            <a href="/edit/{{ app.id }}">Edit</a> |
-            <a href="/delete/{{ app.id }}" onclick="return confirm('Delete this application?')">Delete</a>
+          <a href="/edit/{{ app.id }}">Edit</a> | 
+          <a href="/delete/{{ app.id }}" onclick="return confirm('Are you sure?')">Delete</a>
         </td>
-    </tr>
+      </tr>
+    {% else %}
+      <tr><td colspan="5">No applications found.</td></tr>
     {% endfor %}
+  </tbody>
 </table>
+
+<a href="/add" class="btn btn-primary">Add New Internship</a>
+{% endblock %}
+
