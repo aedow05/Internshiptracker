@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Internship</title>
+</head>
+<body>
+    <h1>Add a New Internship</h1>
+
+    <form method="POST">
+        <label>Company:</label><br>
+        <input type="text" name="company" required><br><br>
+
+        <label>Role:</label><br>
+        <input type="text" name="role" required><br><br>
+
+        <label>Date Applied:</label><br>
+        <input type="date" name="date_applied"><br><br>
+
+        <label>Job Link:</label><br>
+        <input type="url" name="job_link"><br><br>
+
+        <label>Status:</label><br>
+        <select name="status">
+            <option>Applied</option>
+            <option>Interviewing</option>
+            <option>Offer</option>
+            <option>Rejected</option>
+        </select><br><br>
+
+        <label>Notes:</label><br>
+        <textarea name="notes"></textarea><br><br>
+
+        <label>Follow Up Date:</label><br>
+        <input type="date" name="follow_up_date"><br><br>
+
+        <button type="submit">Add Internship</button>
+    </form>
+
+    <br>
+    <a href="/">← Back to Internship List</a>
+</body>
+</html>

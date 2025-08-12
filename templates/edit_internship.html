@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Internship</title>
+</head>
+<body>
+    <h1>Edit Internship</h1>
+    <form method="POST">
+        <label>Company: <input type="text" name="company" value="{{ app.company }}" required></label><br>
+        <label>Role: <input type="text" name="role" value="{{ app.role }}" required></label><br>
+        <label>Date Applied: <input type="date" name="date_applied" value="{{ app.date_applied }}"></label><br>
+        <label>Job Link: <input type="url" name="job_link" value="{{ app.job_link }}"></label><br>
+        <label>Status:
+            <select name="status">
+                {% for s in ["Applied", "Interviewing", "Offer", "Rejected"] %}
+                    <option value="{{ s }}" {% if app.status == s %}selected{% endif %}>{{ s }}</option>
+                {% endfor %}
+            </select>
+        </label><br>
+        <label>Notes: <textarea name="notes">{{ app.notes }}</textarea></label><br>
+        <label>Follow Up Date: <input type="date" name="follow_up_date" value="{{ app.follow_up_date }}"></label><br>
+        <button type="submit">Update</button>
+    </form>
+    <a href="/">← Back</a>
+</body>
+</html>

@@ -1,25 +1,29 @@
-<!doctype html>
-<html>
-<head>
-    <title>Internship Tracker</title>
-</head>
-<body>
-    <h1>Internship Applications</h1>
-    <table border="1">
-        <tr>
-            <th>Company</th>
-            <th>Role</th>
-            <th>Date Applied</th>
-            <th>Status</th>
-        </tr>
-        {% for app in applications %}
-        <tr>
-            <td>{{ app['company'] }}</td>
-            <td>{{ app['role'] }}</td>
-            <td>{{ app['date_applied'] }}</td>
-            <td>{{ app['status'] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-</body>
-</html>
+<h1>Internship Applications</h1>
+
+<!-- Search form -->
+<form method="get" action="/">
+    <input type="text" name="search" placeholder="Search..." value="{{ search }}">
+    <button type="submit">Search</button>
+</form>
+
+<table border="1">
+    <tr>
+        <th>Company</th>
+        <th>Role</th>
+        <th>Date Applied</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    {% for app in applications %}
+    <tr>
+        <td>{{ app.company }}</td>
+        <td>{{ app.role }}</td>
+        <td>{{ app.date_applied }}</td>
+        <td>{{ app.status }}</td>
+        <td>
+            <a href="/edit/{{ app.id }}">Edit</a> |
+            <a href="/delete/{{ app.id }}" onclick="return confirm('Delete this application?')">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
