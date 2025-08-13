@@ -6,7 +6,7 @@ from functools import wraps
 import os
 
 app = Flask(__name__)
-app.secret_key = '42506'
+app.secret_key = os.urandom(24)  # Set a secret key for session management
 
 
 
@@ -19,6 +19,7 @@ def get_db_connection():
     conn = sqlite3.connect('internships.db')
     conn.row_factory = sqlite3.Row
     return conn
+
 def init_db():
     print("Initializing database and creating tables if not exist...")
     conn = get_db_connection()
@@ -112,8 +113,21 @@ def login_required(f):
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html', username=session['username'])
+    conn = get_db_connection()
+    # Count applications by status
+    status_counts = conn.execute('''
+        SELECT status, COUNT(*) as count
+        FROM applications
+        GROUP BY status
+    ''').fetchall()
 
+    # Total applications
+    total_apps = conn.execute('SELECT COUNT(*) as total FROM applications').fetchone()['total']
+
+    conn.close()
+    return render_template('dashboard.html', status_counts=status_counts, total_apps=total_apps, username=session['username'])
+
+    
 # Home Page - Show all internships
 @app.route('/')
 @login_required
@@ -191,6 +205,12 @@ def delete_internship(id):
     conn.commit()
     conn.close()
     return redirect('/')
+@app.route('/internships')
+def list_internships():
+    conn = get_db_connection()
+    internships = conn.execute("SELECT * FROM internships ORDER BY start_date DESC").fetchall()
+    conn.close()
+    return render_template('internships.html', internships=internships)
 
 # Run the app
 if __name__ == '__main__':

@@ -1,42 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Internship</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background: linear-gradient(120deg, #f6d365, #fda085);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="date"],
+        input[type="url"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: #ff7e5f;
+            box-shadow: 0 0 5px rgba(255,126,95,0.3);
+            outline: none;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        button, .btn-back {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+        .btn-submit {
+            background: #ff7e5f;
+            color: #fff;
+        }
+        .btn-submit:hover {
+            background: #feb47b;
+        }
+        .btn-back {
+            background: #6a82fb;
+            color: #fff;
+        }
+        .btn-back:hover {
+            background: #4a6cf7;
+        }
+        @media (max-width: 500px) {
+            .form-actions {
+                flex-direction: column;
+            }
+            .form-actions button, .form-actions .btn-back {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Add a New Internship</h1>
+    <div class="container">
+        <h1>Add New Internship</h1>
+        <form method="POST" action="/add">
+            <label for="company">Company Name</label>
+            <input type="text" id="company" name="company" placeholder="Enter company name" required>
 
-    <form method="POST">
-        <label>Company:</label><br>
-        <input type="text" name="company" required><br><br>
+            <label for="role">Position/Role</label>
+            <input type="text" id="role" name="role" placeholder="Enter position or role" required>
 
-        <label>Role:</label><br>
-        <input type="text" name="role" required><br><br>
+            <label for="job_link">Job Link</label>
+            <input type="url" id="job_link" name="job_link" placeholder="Optional job posting URL">
 
-        <label>Date Applied:</label><br>
-        <input type="date" name="date_applied"><br><br>
+            <label for="status">Status</label>
+            <select id="status" name="status" required>
+                <option value="Applied">Applied</option>
+                <option value="Interview Scheduled">Interview Scheduled</option>
+                <option value="Interviewed">Interviewed</option>
+                <option value="Offer Received">Offer Received</option>
+                <option value="Offer Accepted">Offer Accepted</option>
+                <option value="Offer Declined">Offer Declined</option>
+                <option value="Rejected">Rejected</option>
+                <option value="In Progress">In Progress</option>
+                <option value="On Hold">On Hold</option>
+                <option value="Withdrawn">Withdrawn</option>
+            </select>
 
-        <label>Job Link:</label><br>
-        <input type="url" name="job_link"><br><br>
+            <label for="date_applied">Date Applied</label>
+            <input type="date" id="date_applied" name="date_applied">
 
-        <label>Status:</label><br>
-        <select name="status">
-            <option>Applied</option>
-            <option>Interviewing</option>
-            <option>Offer</option>
-            <option>Rejected</option>
-        </select><br><br>
+            <label for="notes">Notes</label>
+            <textarea id="notes" name="notes" placeholder="Enter any notes about this internship"></textarea>
 
-        <label>Notes:</label><br>
-        <textarea name="notes"></textarea><br><br>
+            <label for="follow_up_date">Follow-Up Date</label>
+            <input type="date" id="follow_up_date" name="follow_up_date">
 
-        <label>Follow Up Date:</label><br>
-        <input type="date" name="follow_up_date"><br><br>
-
-        <button type="submit">Add Internship</button>
-    </form>
-
-    <br>
-    <a href="/">← Back to Internship List</a>
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">Add Internship</button>
+                <a href="/" class="btn-back">Back</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
+

@@ -20,11 +20,13 @@ def init_db():
             follow_up_date TEXT
         )
     ''')
-     # Verify tables exist now:
-    tables = conn.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()
-    print("Tables in DB after init:", tables)
+    def add_internship(company_name, position, status="Applied", notes="", follow_up_date=""):
+        c.execute('''
+        INSERT INTO internships (company_name, position, status, notes, follow_up_date)
+        VALUES (?, ?, ?, ?, ?)
+    ''', (company_name, position, status, notes, follow_up_date))
     conn.commit()
-    conn.close()
+     
 
 
 
